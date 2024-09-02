@@ -32,7 +32,7 @@ const questions = [
 
 // Display the quiz questions and choices
 const questionsElement = document.getElementById("questions");
-let userAnswers=[];
+let userAnswers= sessionStorage.getItem("progress");
 function renderQuestions() {
   for (let i = 0; i < questions.length; i++) {
     const question = questions[i];
@@ -51,7 +51,7 @@ function renderQuestions() {
 		choiceElement.addEventListener('change',(event)=>{
 			let selectedElm = event.target.value;
 			userAnswers[i]=selectedElm;
-			sessionStorage.setItem("progress",JSON.stringify(userAnswers[i]))
+			sessionStorage.setItem("progress",JSON.stringify(userAnswers))
 		})
       const choiceText = document.createTextNode(choice);
       questionElement.appendChild(choiceElement);
@@ -72,7 +72,7 @@ function displayScore() {
 		}
 	})
 	
-	scoreDiv.textContent = `Your score is ${score} out of ${questions.length}`
+	scoreDiv.textContent = `Your score is ${score} out of ${questions.length}.`
 	localStorage.setItem('score',score);
 }
 document.getElementById("submit").addEventListener('click',displayScore )
