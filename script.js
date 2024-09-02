@@ -32,7 +32,7 @@ const questions = [
 
 // Display the quiz questions and choices
 const questionsElement = document.getElementById("questions");
-let userAnswers= JSON.parse(sessionStorage.getItem("progress"));
+let userAnswers= JSON.parse(sessionStorage.getItem("progress"))||[];
 function renderQuestions() {
   for (let i = 0; i < questions.length; i++) {
     const question = questions[i];
