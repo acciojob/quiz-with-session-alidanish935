@@ -50,8 +50,8 @@ function renderQuestions() {
       }
 		choiceElement.addEventListener('change',(event)=>{
 			let selectedElm = event.target.value;
-			userAnswers[j]=selectedElm;
-			sessionStorage.setItem("progress",JSON.stringify(userAnswers[j]))
+			userAnswers[i]=selectedElm;
+			sessionStorage.setItem("progress",JSON.stringify(userAnswers[i]))
 		})
       const choiceText = document.createTextNode(choice);
       questionElement.appendChild(choiceElement);
@@ -67,12 +67,13 @@ const scoreDiv = document.getElementById("score");
 function displayScore() {
 	let score =0;
 	questions.forEach((question,index)=>{
-		if(userAnswers[index]===question.answer){
+		if(userAnswers[index]==question.answer){
 			score++;
 		}
 	})
-
+	
 	scoreDiv.textContent = `Your score is ${score} out of ${questions.length}`
+	localStorage.setItem('score',score);
 }
 document.getElementById("submit").addEventListener('click',displayScore )
 
