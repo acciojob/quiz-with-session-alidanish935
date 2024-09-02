@@ -31,6 +31,8 @@ const questions = [
 ];
 
 // Display the quiz questions and choices
+const questionsElement = document.getElementById("questions");
+let userAnswers=[];
 function renderQuestions() {
   for (let i = 0; i < questions.length; i++) {
     const question = questions[i];
@@ -46,11 +48,35 @@ function renderQuestions() {
       if (userAnswers[i] === choice) {
         choiceElement.setAttribute("checked", true);
       }
+		choiceElement.addEventListener('change',(event)=>{
+			let selectedElm = event.target.value;
+			userAnswers[j]=selectedElm;
+			sessionStorage.setItem("progress",JSON.stringify(userAnswers[j]))
+		})
       const choiceText = document.createTextNode(choice);
       questionElement.appendChild(choiceElement);
       questionElement.appendChild(choiceText);
     }
     questionsElement.appendChild(questionElement);
+
   }
 }
 renderQuestions();
+
+const scoreDiv = document.getElementById("score");
+function displayScore() {
+	let score =0;
+	questions.forEach((question,index)=>{
+		if(userAnswers[index]===question.answer){
+			score++;
+		}
+	})
+
+	scoreDiv.textContent = `Your score is ${score} out of ${questions.length}`
+}
+document.getElementById("submit").addEventListener('click',displayScore )
+
+
+
+
+
